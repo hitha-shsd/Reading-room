@@ -1,0 +1,2447 @@
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+@source "../src";
+@custom-variant dark (&:is(.dark *));
+
+/* User-chosen antique palette. Text roles are separate from decorative gold. */
+:root {
+  --walnut: oklch(0.257 0.032 53.2);
+  --leather: oklch(0.375 0.059 57.4);
+  --coffee: oklch(0.471 0.073 59.8);
+  --parchment: oklch(0.888 0.042 83.4);
+  --paper: oklch(0.927 0.034 85.1);
+  --beige: oklch(0.898 0.036 83.4);
+  --ink: oklch(0.287 0.04 57.3);
+  --gold: oklch(0.679 0.111 84.1);
+  --sage: oklch(0.666 0.049 128.5);
+  --rose: oklch(0.586 0.085 33.5);
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--leather);
+  --primary-foreground: var(--beige);
+  --secondary: var(--parchment);
+  --secondary-foreground: var(--ink);
+  --muted: var(--parchment);
+  --muted-foreground: var(--ink);
+  --accent: var(--parchment);
+  --accent-foreground: var(--ink);
+  --destructive: var(--leather);
+  --destructive-foreground: var(--beige);
+  --border: color-mix(in oklab, var(--ink) 19%, var(--paper));
+  --input: color-mix(in oklab, var(--ink) 25%, var(--paper));
+  --ring: var(--coffee);
+  --radius: 0.25rem;
+  --desk-shadow:
+    0 26px 50px color-mix(in oklab, var(--walnut) 90%, transparent),
+    0 5px 9px color-mix(in oklab, var(--ink) 70%, transparent);
+  --paper-shadow: inset 0 0 35px color-mix(in oklab, var(--coffee) 10%, transparent);
+  --wood-grain:
+    repeating-linear-gradient(
+      2deg,
+      transparent 0 9px,
+      color-mix(in oklab, var(--coffee) 9%, transparent) 10px,
+      transparent 12px 40px
+    ),
+    repeating-linear-gradient(
+      178deg,
+      transparent 0 39px,
+      color-mix(in oklab, var(--ink) 45%, transparent) 40px 42px,
+      transparent 44px 75px
+    ),
+    linear-gradient(
+      105deg,
+      var(--walnut),
+      color-mix(in oklab, var(--walnut) 76%, var(--coffee)) 48%,
+      var(--walnut)
+    );
+  --paper-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.07' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@theme inline {
+  --font-sans: "EB Garamond", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-script: "Pinyon Script", cursive;
+  --font-hand: "Caveat", cursive;
+  --font-mono: "Courier Prime", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-rose: var(--rose);
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+}
+@layer base {
+  * {
+    border-color: var(--border);
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--walnut);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  a {
+    color: inherit;
+  }
+  button {
+    letter-spacing: 0;
+  }
+  input,
+  textarea,
+  select {
+    width: 100%;
+    min-width: 0;
+    background: color-mix(in oklab, var(--paper) 75%, transparent);
+    border: 1px solid var(--input);
+    border-radius: 3px;
+    padding: 8px 10px;
+    color: var(--ink);
+    font-size: 16px;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--ink);
+    opacity: 0.65;
+  }
+  textarea {
+    resize: vertical;
+  }
+  input[type="number"] {
+    font-family: var(--font-mono);
+  }
+  progress {
+    appearance: none;
+    height: 5px;
+    width: 100%;
+    display: block;
+    border: 0;
+    border-radius: 1px;
+    overflow: hidden;
+    background: var(--parchment);
+  }
+  progress::-webkit-progress-bar {
+    background: color-mix(in oklab, var(--ink) 13%, var(--paper));
+  }
+  progress::-webkit-progress-value {
+    background: var(--sage);
+    transition: width 0.6s;
+  }
+  progress::-moz-progress-bar {
+    background: var(--sage);
+  }
+}
+/* Controls are variants of the shared Button component. */
+.leather-button {
+  background: var(--leather);
+  color: var(--beige);
+  border: 1px solid var(--gold);
+  box-shadow:
+    inset 0 0 0 2px var(--leather),
+    inset 0 0 0 3px color-mix(in oklab, var(--gold) 40%, var(--leather)),
+    0 2px 3px color-mix(in oklab, var(--ink) 15%, transparent);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  border-radius: 3px;
+}
+.leather-button:hover {
+  background: var(--coffee);
+}
+.leather-button:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: inset 0 2px 4px var(--walnut);
+}
+.paper-tab-button {
+  background: transparent;
+  color: var(--ink);
+  border-radius: 2px;
+  font-weight: 400;
+}
+.paper-tab-button:hover {
+  background: color-mix(in oklab, var(--parchment) 60%, transparent);
+}
+.chapter-tab-button {
+  background: var(--leather);
+  color: var(--beige);
+  border: 1px solid color-mix(in oklab, var(--gold) 40%, var(--leather));
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+.chapter-tab-button:hover {
+  background: var(--coffee);
+}
+.small-label,
+.chapter-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  line-height: 1.7;
+}
+.metadata {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.handwritten {
+  font-family: var(--font-hand);
+  font-size: 25px;
+  line-height: 1.3;
+}
+.flourish {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  color: var(--gold);
+  font-size: 29px;
+  line-height: 1;
+}
+.flourish span {
+  height: 1px;
+  width: 52px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.flourish span:last-child {
+  transform: rotate(180deg);
+}
+.reading-desk {
+  min-height: 100vh;
+  color: var(--beige);
+  background: var(--wood-grain);
+  overflow: hidden;
+  padding: 28px 5% 19px;
+  position: relative;
+}
+.reading-desk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--paper-grain);
+  pointer-events: none;
+  opacity: 0.42;
+}
+.desk-header {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+.brand-lockup {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.wax-seal {
+  width: 53px;
+  height: 53px;
+  border-radius: 48% 44% 48% 45%;
+  color: var(--beige);
+  background: var(--leather);
+  border: 2px solid var(--coffee);
+  box-shadow:
+    inset 0 0 0 4px var(--leather),
+    inset 0 0 0 5px var(--coffee),
+    0 3px 8px var(--walnut);
+  display: grid;
+  place-items: center;
+  transform: rotate(-9deg);
+}
+.wax-seal svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1;
+}
+.brand-name {
+  font-family: var(--font-script);
+  display: block;
+  font-size: 37px;
+  line-height: 1.15;
+}
+.brand-subtitle {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  margin-top: 6px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.saved-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+.saved-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--sage);
+  border-radius: 50%;
+}
+.backup-control {
+  position: relative;
+}
+.backup-control > .chapter-tab-button {
+  border-color: var(--gold);
+  border-radius: 3px;
+}
+.backup-menu {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 195px;
+  padding: 5px;
+  background: var(--leather);
+  border: 1px solid var(--gold);
+  box-shadow: var(--desk-shadow);
+}
+.backup-menu button {
+  width: 100%;
+  justify-content: flex-start;
+  border: 0;
+}
+.desk-tagline {
+  text-align: center;
+  font-family: var(--font-script);
+  color: var(--beige);
+  font-size: 28px;
+  margin: 28px 0 30px;
+}
+.desk-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+  max-width: 850px;
+  margin: 0 auto 18px;
+}
+.desk-book-area {
+  max-width: 1136px;
+  margin: 0 auto;
+  position: relative;
+  padding-right: 38px;
+  z-index: 1;
+}
+.book-container {
+  position: relative;
+  perspective: 2000px;
+}
+.book-cover-base {
+  padding: 12px 10px 15px;
+  background: var(--leather);
+  border-radius: 7px;
+  box-shadow: var(--desk-shadow);
+  border: 1px solid var(--gold);
+  position: relative;
+}
+.book-cover-base::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed color-mix(in oklab, var(--gold) 55%, var(--leather));
+  border-radius: 3px;
+  pointer-events: none;
+}
+.book-spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  position: relative;
+  min-height: 685px;
+}
+.book-page {
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: var(--paper-grain);
+  position: relative;
+  min-width: 0;
+  box-shadow: var(--paper-shadow);
+}
+.left-page {
+  background-color: var(--parchment);
+  border-radius: 2px 0 0 2px;
+  padding: 33px 40px 50px;
+  display: flex;
+  flex-direction: column;
+  background-image:
+    linear-gradient(90deg, transparent 90%, color-mix(in oklab, var(--coffee) 11%, transparent)),
+    var(--paper-grain);
+}
+.right-page {
+  padding: 37px 35px 55px;
+  border-radius: 0 3px 3px 0;
+  background-image:
+    linear-gradient(90deg, color-mix(in oklab, var(--coffee) 12%, transparent), transparent 7%),
+    var(--paper-grain);
+}
+.book-binding {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--coffee) 24%, transparent) 40%,
+    color-mix(in oklab, var(--walnut) 35%, transparent) 50%,
+    color-mix(in oklab, var(--coffee) 19%, transparent) 60%,
+    transparent
+  );
+}
+.book-binding::after {
+  content: "";
+  position: absolute;
+  height: 80%;
+  width: 1px;
+  top: 10%;
+  left: 50%;
+  border-left: 1px dashed color-mix(in oklab, var(--ink) 25%, transparent);
+}
+.page-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid color-mix(in oklab, var(--gold) 50%, transparent);
+  padding-bottom: 11px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+.left-page-title {
+  text-align: center;
+  padding-top: 33px;
+}
+.chapter-eyebrow {
+  display: block;
+  font-size: 10px;
+}
+.left-page-title h1 {
+  font-family: var(--font-script);
+  font-size: 63px;
+  font-weight: 400;
+  line-height: 1.35;
+  margin: 2px 0 0;
+}
+.left-page-title p {
+  font-size: 17px;
+  max-width: 285px;
+  margin: 17px auto 0;
+  font-style: italic;
+  line-height: 1.45;
+}
+.illustration-wrap {
+  margin: 1px -11px -6px;
+}
+.illustration-wrap img {
+  width: 100%;
+  height: auto;
+  max-height: 295px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.welcome-note {
+  font-size: 23px;
+  text-align: center;
+  transform: rotate(-3deg);
+}
+.left-stats {
+  margin-top: auto;
+  padding-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.left-stats strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.left-stats div > span {
+  font-style: italic;
+  font-size: 13px;
+}
+.stat-separator {
+  color: var(--gold);
+  font-size: 14px;
+}
+.page-bottom {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  border-top: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
+  padding-top: 9px;
+}
+.corner-flourish {
+  position: absolute;
+  color: var(--gold);
+  font-size: 32px;
+  line-height: 1;
+  opacity: 0.75;
+  pointer-events: none;
+}
+.top-left {
+  left: 9px;
+  top: 9px;
+  transform: rotate(-35deg);
+}
+.top-right {
+  right: 9px;
+  top: 9px;
+  transform: rotate(35deg) scaleX(-1);
+}
+.bottom-left {
+  left: 9px;
+  bottom: 7px;
+  transform: rotate(35deg) scaleY(-1);
+}
+.bottom-right {
+  right: 9px;
+  bottom: 7px;
+  transform: rotate(145deg);
+}
+.bookmark-ribbon {
+  position: absolute;
+  width: 24px;
+  height: 92px;
+  left: calc(50% - 53px);
+  top: -13px;
+  z-index: 4;
+  background: var(--rose);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  box-shadow:
+    inset 2px 0 color-mix(in oklab, var(--paper) 20%, transparent),
+    inset -2px 0 color-mix(in oklab, var(--walnut) 20%, transparent);
+}
+.book-under-pages {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 50px;
+  height: 10px;
+  z-index: -1;
+  background: repeating-linear-gradient(
+    0deg,
+    var(--parchment) 0 1px,
+    var(--coffee) 1px 2px,
+    var(--paper) 2px 3px
+  );
+  border-radius: 0 0 4px 4px;
+  transform: translateY(4px);
+}
+.chapter-tabs {
+  position: absolute;
+  right: -38px;
+  top: 49px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 3;
+  align-items: flex-end;
+}
+.chapter-tabs .chapter-tab-button {
+  width: 43px;
+  height: 116px;
+  border-radius: 0 5px 5px 0;
+  padding: 10px 4px;
+  writing-mode: vertical-rl;
+  display: flex;
+  gap: 7px;
+  box-shadow: 2px 3px 4px color-mix(in oklab, var(--walnut) 45%, transparent);
+  font-size: 13px;
+  transition:
+    width 0.2s,
+    background 0.2s;
+}
+.chapter-tabs .chapter-tab-button:first-child {
+  height: 83px;
+}
+.chapter-tabs .chapter-tab-button.active {
+  width: 49px;
+  background: var(--coffee);
+  border-color: var(--gold);
+}
+.chapter-tabs svg {
+  width: 15px;
+  height: 15px;
+}
+.chapter-tabs .chapter-tab-button:hover {
+  width: 49px;
+}
+.bottom-page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 17px 7px 0;
+  gap: 12px;
+  color: var(--beige);
+}
+.bottom-page-nav button {
+  background: transparent;
+  border: 0;
+  font-style: italic;
+  font-size: 14px;
+}
+.bottom-page-nav .metadata {
+  font-size: 9px;
+}
+.desk-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1150px;
+  margin: 29px auto 0;
+  color: var(--beige);
+  font-size: 13px;
+  position: relative;
+  z-index: 2;
+}
+.desk-footer > span:first-child {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-style: italic;
+}
+.desk-footer button {
+  background: transparent;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+.footer-privacy {
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+.coffee-cup {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  right: -105px;
+  bottom: 6px;
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 6px 5px var(--walnut));
+  z-index: 3;
+  pointer-events: none;
+}
+.cup-saucer,
+.cup-rim,
+.cup-body {
+  fill: var(--parchment);
+  stroke: var(--coffee);
+  stroke-width: 2px;
+}
+.cup-handle {
+  fill: none;
+  stroke: var(--parchment);
+  stroke-width: 13px;
+}
+.cup-coffee {
+  fill: var(--coffee);
+}
+.steam {
+  stroke: var(--beige);
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.5;
+  animation: steam-rise 4s ease-in-out infinite;
+}
+.desk-pen {
+  position: absolute;
+  left: -60px;
+  bottom: 85px;
+  transform: rotate(-25deg);
+  color: var(--beige);
+  opacity: 0.65;
+}
+.desk-pen svg {
+  width: 85px;
+  height: 85px;
+  stroke-width: 0.7;
+}
+/* Table of contents: open, book-like typography rather than dashboard panels. */
+.contents-heading {
+  text-align: center;
+  padding: 22px 0 10px;
+}
+.contents-heading h2 {
+  font: 400 46px/1.35 var(--font-script);
+  margin: 3px 0 5px;
+}
+.contents-list {
+  margin: 21px 0 0;
+}
+.contents-link {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  height: auto;
+  padding: 15px 0;
+  gap: 11px;
+  border-bottom: 1px solid color-mix(in oklab, var(--gold) 26%, transparent);
+  text-align: left;
+  white-space: normal;
+}
+.contents-icon {
+  border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent);
+  height: 33px;
+  width: 33px;
+  flex: 0 0 33px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+.contents-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.3;
+}
+.contents-link-body {
+  display: block;
+  min-width: 0;
+}
+.contents-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  display: block;
+  line-height: 1.3;
+}
+.contents-description {
+  font-size: 13px;
+  font-style: italic;
+  display: block;
+  margin-top: 4px;
+}
+.dotted-leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--gold);
+  min-width: 6px;
+  margin-top: 4px;
+}
+.contents-number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  align-self: flex-start;
+  margin-top: 7px;
+}
+.moment-note {
+  position: relative;
+  padding: 23px 26px 25px;
+  margin: 40px 7px 0;
+  background: var(--parchment);
+  background-image: var(--paper-grain);
+  transform: rotate(-2deg);
+  box-shadow: 0 3px 7px color-mix(in oklab, var(--coffee) 15%, transparent);
+  border: 1px solid color-mix(in oklab, var(--coffee) 12%, transparent);
+}
+.note-pin {
+  position: absolute;
+  top: -7px;
+  left: calc(50% - 26px);
+  width: 52px;
+  height: 17px;
+  background: color-mix(in oklab, var(--paper) 63%, transparent);
+  transform: rotate(7deg);
+}
+.moment-note > .small-label {
+  display: block;
+  font-size: 9px;
+  text-align: center;
+}
+.moment-note .quote-mark {
+  position: absolute;
+  left: 14px;
+  top: 31px;
+  font-size: 66px;
+}
+.moment-note p {
+  padding: 18px 7px 5px;
+  font-size: 27px;
+  text-align: center;
+}
+.note-signature {
+  display: block;
+  text-align: right;
+  font-size: 18px;
+  margin-top: 11px;
+  padding-right: 16px;
+}
+.moment-note .botanical {
+  width: 49px;
+  height: 83px;
+  position: absolute;
+  bottom: -12px;
+  right: -13px;
+  transform: rotate(17deg);
+}
+.contents-bottom {
+  margin: 29px 0 0;
+  text-align: center;
+}
+.contents-bottom p {
+  font-size: 21px;
+  margin-top: 14px;
+}
+.quote-mark {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 80px;
+  line-height: 1;
+  pointer-events: none;
+}
+.botanical {
+  stroke: var(--sage);
+  stroke-width: 1.6;
+}
+.botanical path:not(.flower-petals) {
+  fill: color-mix(in oklab, var(--sage) 25%, transparent);
+}
+.botanical .flower-petals {
+  stroke: var(--rose);
+  fill: color-mix(in oklab, var(--rose) 20%, transparent);
+}
+.botanical circle {
+  fill: var(--gold);
+  stroke: var(--gold);
+}
+.coffee-ring {
+  position: absolute;
+  left: 4px;
+  bottom: 86px;
+  width: 74px;
+  height: 74px;
+  border: 5px double color-mix(in oklab, var(--coffee) 10%, transparent);
+  border-radius: 50%;
+  transform: rotate(25deg) scaleX(0.9);
+  pointer-events: none;
+}
+/* Shared chapter layout. */
+.page-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+.page-section-heading h2 {
+  font-family: var(--font-script);
+  font-size: 43px;
+  font-weight: 400;
+  line-height: 1.3;
+  position: relative;
+}
+.page-section-heading h2::after {
+  content: "";
+  display: block;
+  width: 83%;
+  height: 5px;
+  border-bottom: 1px solid var(--gold);
+  border-radius: 50%;
+  transform: rotate(-2deg);
+  transform-origin: left;
+  animation: ink-write 0.7s ease-out both;
+}
+.page-section-heading .leather-button {
+  font-size: 12px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+}
+.page-section-heading .leather-button svg {
+  width: 13px;
+  height: 13px;
+}
+.page-intro {
+  font-style: italic;
+  font-size: 15px;
+  margin-top: 14px;
+  margin-bottom: 25px;
+}
+.page-closing {
+  text-align: center;
+  font-size: 23px;
+  margin-top: 16px;
+}
+.empty-state {
+  padding: 45px 16px;
+  text-align: center;
+}
+.empty-state > svg {
+  margin: 0 auto 13px;
+  width: 30px;
+  height: 30px;
+  stroke-width: 1;
+}
+.empty-state h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+.empty-state p {
+  margin-bottom: 15px;
+  font-style: italic;
+}
+.right-page-content {
+  animation: page-arrive 0.6s ease both;
+}
+/* Bookshelf and tipped-in covers. */
+.shelf-filters {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+.shelf-filters button {
+  font-size: 12px;
+  padding: 7px 8px;
+  height: 38px;
+  gap: 5px;
+  position: relative;
+  flex: 1;
+}
+.shelf-filters button.selected {
+  border-bottom: 2px solid var(--coffee);
+  background: color-mix(in oklab, var(--parchment) 60%, transparent);
+}
+.count-badge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  margin-bottom: 30px;
+}
+.book-card {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  gap: 19px;
+  padding: 15px 13px;
+  background: color-mix(in oklab, var(--parchment) 43%, var(--paper));
+  background-image: var(--paper-grain);
+  border: 1px solid color-mix(in oklab, var(--coffee) 20%, transparent);
+  border-radius: 2px;
+  box-shadow: 2px 3px 7px color-mix(in oklab, var(--coffee) 10%, transparent);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+  position: relative;
+}
+.book-card:nth-child(odd) {
+  transform: rotate(-0.6deg);
+}
+.book-card:nth-child(even) {
+  transform: rotate(0.5deg);
+}
+.book-card:hover {
+  transform: translateY(-3px) rotate(0);
+  box-shadow: 2px 7px 13px color-mix(in oklab, var(--coffee) 17%, transparent);
+}
+.book-cover {
+  background: var(--leather);
+  color: var(--beige);
+  width: 108px;
+  min-height: 166px;
+  align-self: start;
+  position: relative;
+  border-radius: 2px 3px 3px 2px;
+  box-shadow:
+    3px 4px 6px color-mix(in oklab, var(--ink) 25%, transparent),
+    inset 5px 0 6px var(--walnut);
+  padding: 8px 7px 8px 11px;
+}
+.book-cover::before {
+  content: "";
+  position: absolute;
+  inset: 7px 5px 7px 9px;
+  border: 1px solid var(--gold);
+  pointer-events: none;
+  opacity: 0.6;
+}
+.book-cover::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  bottom: 2px;
+  border-left: 1px solid color-mix(in oklab, var(--gold) 30%, transparent);
+}
+.book-cover.cover-1 {
+  background: var(--coffee);
+}
+.book-cover.cover-2 {
+  background: var(--walnut);
+}
+.book-cover.cover-3 {
+  background: var(--leather);
+}
+.cover-lettering {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 5px;
+  min-height: 150px;
+  text-align: center;
+}
+.cover-ornament {
+  color: var(--gold);
+  font-size: 18px;
+}
+.cover-book-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.35;
+}
+.cover-author {
+  font-size: 10px;
+  font-family: var(--font-sans);
+}
+.cover-rule {
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+  margin: 8px 0;
+}
+.book-cover img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.book-card-body {
+  min-width: 0;
+}
+.book-card-body > .small-label {
+  font-size: 8px;
+}
+.book-card h3 {
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 4px 0 4px;
+}
+.book-author {
+  font-size: 14px;
+  font-style: italic;
+}
+.book-rating {
+  display: flex;
+  gap: 3px;
+  margin-top: 10px;
+}
+.book-rating svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--gold);
+}
+.star-filled {
+  fill: var(--gold);
+  stroke: var(--gold);
+}
+.rating-stars {
+  display: flex;
+  color: var(--gold);
+}
+.rating-stars button {
+  width: 34px;
+}
+.progress-line {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin: 11px 0 6px;
+}
+.progress-line span {
+  font: 10px var(--font-mono);
+}
+.page-update {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font: 10px var(--font-mono);
+}
+.page-update input {
+  width: 48px;
+  padding: 2px 3px;
+  font-size: 11px;
+  height: 25px;
+  border-color: transparent;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+.page-update button {
+  width: 25px;
+  height: 25px;
+}
+.page-update button svg {
+  width: 13px;
+}
+.book-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 8px;
+}
+.book-actions > button {
+  height: 27px;
+}
+.book-actions > button[aria-label] {
+  width: 25px;
+}
+.book-actions > button svg {
+  width: 12px;
+  height: 12px;
+}
+.book-actions .action-spacer {
+  flex: 1;
+}
+.book-actions .text-primary {
+  color: var(--ink);
+  font-size: 11px;
+  padding: 0;
+}
+.book-review {
+  font-size: 21px;
+  margin-top: 10px;
+}
+.finished-stamp {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  border: 2px solid var(--rose);
+  padding: 3px 10px;
+  transform: rotate(-10deg);
+  margin: 12px 0 4px;
+  animation: stamp 0.4s ease-out;
+  color: var(--ink);
+}
+.wooden-bookshelf {
+  margin: 38px 3px 0;
+}
+.shelf-books {
+  min-height: 155px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 10px;
+}
+.book-spine {
+  width: 43px;
+  flex: 0 1 43px;
+  height: 147px;
+  border-radius: 2px 2px 0 0;
+  padding: 8px 4px;
+  writing-mode: vertical-rl;
+  box-shadow: inset 3px 0 3px color-mix(in oklab, var(--walnut) 50%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  color: var(--beige);
+  font-size: 12px;
+  white-space: normal;
+}
+.book-spine span:first-child {
+  max-height: 123px;
+  overflow: hidden;
+}
+.book-spine.spine-1 {
+  height: 135px;
+  background: var(--coffee);
+}
+.book-spine.spine-2 {
+  height: 156px;
+  background: var(--walnut);
+}
+.book-spine.spine-3 {
+  height: 128px;
+}
+.spine-decoration {
+  color: var(--gold);
+  font-size: 14px;
+}
+.shelf-plank {
+  height: 14px;
+  background: var(--coffee);
+  border-top: 3px solid var(--leather);
+  box-shadow: 0 6px 8px color-mix(in oklab, var(--coffee) 25%, transparent);
+  border-radius: 2px;
+}
+.shelf-lower {
+  min-height: 106px;
+  justify-content: space-between;
+  padding: 0 19px;
+}
+.shelf-horizontal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 3px;
+  transform: rotate(-2deg);
+}
+.shelf-horizontal span {
+  background: var(--leather);
+  color: var(--beige);
+  padding: 7px 18px;
+  border: 1px solid var(--gold);
+  font: 8px var(--font-mono);
+}
+.shelf-horizontal span:last-child {
+  background: var(--coffee);
+}
+.shelf-lower .botanical {
+  width: 67px;
+  height: 102px;
+  transform: rotate(16deg);
+}
+.left-margin-note {
+  text-align: center;
+  font-size: 24px;
+  margin: 32px 0;
+  transform: rotate(-4deg);
+}
+/* Vinyl records and record-sleeve tracklists. */
+.group-heading {
+  font-size: 14px;
+  font-style: italic;
+  margin: 22px 0 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 7px;
+}
+.playlist-record {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 19px;
+  padding: 16px 0 20px;
+  border-bottom: 1px solid var(--border);
+}
+.record-art {
+  background: var(--parchment);
+  padding: 7px;
+  border: 1px solid var(--border);
+  box-shadow: 2px 3px 4px color-mix(in oklab, var(--coffee) 15%, transparent);
+  transform: rotate(-3deg);
+  align-self: start;
+}
+.vinyl {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    var(--walnut) 0 3px,
+    color-mix(in oklab, var(--walnut) 85%, var(--coffee)) 4px,
+    var(--walnut) 5px 7px
+  );
+  display: grid;
+  place-items: center;
+  box-shadow: 2px 3px 5px color-mix(in oklab, var(--ink) 25%, transparent);
+}
+.vinyl-label {
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--coffee);
+  color: var(--beige);
+  border: 1px solid var(--gold);
+  gap: 3px;
+}
+.vinyl-label svg {
+  width: 15px;
+  height: 15px;
+}
+.vinyl-label span {
+  font: 7px var(--font-mono);
+}
+.record-art:hover .vinyl {
+  animation: record-spin 12s linear infinite;
+}
+.record-caption {
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 1.1;
+  padding: 9px 0 3px;
+}
+.record-info > .small-label {
+  font-size: 9px;
+}
+.record-info h3 {
+  font-size: 21px;
+  line-height: 1.3;
+  margin-top: 4px;
+}
+.record-info > p {
+  font-size: 15px;
+  margin-top: 8px;
+  font-style: italic;
+}
+.record-info .scene-note {
+  font-size: 22px;
+}
+.record-info .metadata {
+  font-size: 8px;
+}
+.track-list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.track-list li {
+  display: flex;
+  gap: 9px;
+  font-size: 13px;
+  border-bottom: 1px dotted var(--border);
+  padding: 4px 0;
+}
+.track-list a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.track-list a:hover {
+  text-decoration: underline;
+}
+.large-record {
+  width: 235px;
+  margin: 44px auto 0;
+  position: relative;
+  transform: rotate(-8deg);
+}
+.large-record > .handwritten {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  margin: 15px -30px 0;
+}
+.large-record .vinyl-label span {
+  font-size: 8px;
+}
+.large-record .vinyl-label svg {
+  width: 26px;
+  height: 26px;
+}
+.soundtrack-flower {
+  width: 60px;
+  height: 110px;
+  align-self: center;
+  margin: 18px 0;
+  transform: rotate(30deg);
+}
+/* Pressed quotes and margin notes. */
+.quote-search {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.search-field {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.search-field svg {
+  position: absolute;
+  left: 10px;
+}
+.search-field input {
+  padding-left: 34px;
+}
+.quote-search select {
+  font-size: 13px;
+}
+.random-quote-button {
+  margin: 15px 0 20px;
+  font-size: 13px;
+}
+.quote-list {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  margin-bottom: 25px;
+}
+.quote-card {
+  position: relative;
+  padding: 28px 25px 18px;
+  background: var(--parchment);
+  background-image: var(--paper-grain);
+  border: 1px solid var(--border);
+  box-shadow: 2px 3px 8px color-mix(in oklab, var(--coffee) 12%, transparent);
+  transform: rotate(-1deg);
+}
+.quote-card:nth-child(even) {
+  transform: rotate(1deg);
+}
+.quote-card > .botanical {
+  position: absolute;
+  width: 49px;
+  height: 79px;
+  right: 0;
+  top: 0;
+  opacity: 0.8;
+}
+.quote-card > .quote-mark {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  font-size: 65px;
+  opacity: 0.7;
+}
+.sample-label {
+  display: block;
+  font-size: 8px;
+  margin: 7px 0 9px;
+}
+.quote-card blockquote {
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-style: italic;
+  margin: 9px 0 12px;
+  line-height: 1.55;
+  position: relative;
+}
+.drop-cap::first-letter {
+  float: left;
+  font-size: 41px;
+  line-height: 1;
+  padding: 5px 4px 0 0;
+}
+.quote-attribution {
+  font-size: 12px;
+  font-style: italic;
+}
+.reflection {
+  font-size: 24px;
+  padding-left: 12px;
+  border-left: 1px solid var(--gold);
+  margin-top: 15px;
+  transform: rotate(-2deg);
+}
+.quote-bottom {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 14px;
+}
+.quote-tags {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.wax-tag {
+  background: var(--leather);
+  color: var(--beige);
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  padding: 2px 8px;
+  font: 9px var(--font-mono);
+  position: relative;
+}
+.quote-bottom button {
+  height: 26px;
+  width: 26px;
+}
+.quote-bottom button svg {
+  width: 12px;
+  height: 12px;
+}
+.garden-art {
+  height: 250px;
+  position: relative;
+  margin: 35px 5px 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.garden-art .botanical {
+  width: 92px;
+  height: 211px;
+  transform: rotate(-16deg);
+}
+.garden-art .botanical:nth-child(2) {
+  height: 250px;
+  transform: rotate(4deg);
+}
+.garden-art .botanical:nth-child(3) {
+  height: 175px;
+  transform: rotate(25deg);
+}
+.garden-art > span {
+  position: absolute;
+  left: 16px;
+  bottom: 0;
+  font-size: 24px;
+  transform: rotate(-6deg);
+}
+.ink-note {
+  position: relative;
+  margin: 30px 16px 20px;
+  padding: 20px;
+  text-align: center;
+}
+.ink-note > .quote-mark {
+  position: absolute;
+  left: 6px;
+  top: -4px;
+  font-size: 63px;
+  opacity: 0.7;
+}
+.ink-note p {
+  font-size: 26px;
+}
+.blooming .botanical {
+  animation: flower-bloom 1s ease-out both;
+}
+.blooming {
+  animation: flower-bloom 0.5s ease-out both;
+}
+/* Reading planner: unframed sections and a ruled calendar. */
+.little-flower {
+  color: var(--rose);
+  font-size: 35px;
+}
+.planner-section {
+  border-bottom: 1px solid var(--border);
+  padding: 0 0 23px;
+  margin: 22px 0;
+}
+.planner-section h3 {
+  font-size: 18px;
+  font-style: italic;
+  margin-bottom: 13px;
+}
+.mode-switch {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 13px;
+}
+.mode-switch button {
+  font-size: 13px;
+}
+.mode-switch .selected {
+  border-bottom: 1px solid var(--coffee);
+  background: var(--parchment);
+}
+.goal-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  margin-bottom: 23px;
+}
+.goal-progress {
+  margin-top: 17px;
+}
+.goal-progress > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+.goal-progress .metadata {
+  font-size: 10px;
+}
+.goal-progress progress {
+  height: 4px;
+}
+.goal-progress progress::-webkit-progress-value {
+  background: var(--coffee);
+}
+.goal-progress progress::-moz-progress-bar {
+  background: var(--coffee);
+}
+.log-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.log-form button {
+  grid-column: span 2;
+  justify-self: start;
+}
+.encouragement {
+  font-size: 23px;
+  margin-top: 14px;
+}
+.calendar-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.calendar-heading > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.reading-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+  text-align: center;
+}
+.calendar-weekday {
+  padding: 5px 0;
+}
+.calendar-day {
+  min-height: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  font: 12px var(--font-mono);
+  position: relative;
+}
+.calendar-day.today {
+  border: 1px solid var(--gold);
+}
+.calendar-day.read-day {
+  background: color-mix(in oklab, var(--sage) 28%, var(--paper));
+}
+.calendar-day > span {
+  font-size: 12px;
+  color: var(--ink);
+}
+.streak-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 21px;
+}
+.streak-row svg {
+  width: 17px;
+  stroke: var(--coffee);
+  opacity: 0.4;
+}
+.streak-row .candle-lit {
+  fill: var(--gold);
+  opacity: 1;
+}
+.streak-row span {
+  margin-left: 9px;
+  font-size: 9px;
+}
+.goals-illustration {
+  margin: 5px -9px -5px;
+}
+.goals-illustration img {
+  width: 100%;
+  max-height: 290px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+/* Forms live in a paper dialog, keeping the book's entries uncluttered. */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: color-mix(in oklab, var(--walnut) 80%, transparent);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.journal-modal {
+  background: var(--paper);
+  color: var(--ink);
+  background-image: var(--paper-grain);
+  width: 100%;
+  max-width: 530px;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 23px 28px 28px;
+  border: 1px solid var(--gold);
+  box-shadow:
+    0 0 0 5px var(--leather),
+    var(--desk-shadow);
+  border-radius: 3px;
+}
+.modal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold);
+  margin-bottom: 18px;
+}
+.modal-heading h2 {
+  font-family: var(--font-script);
+  font-size: 39px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.journal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 5px;
+}
+.form-field > span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 3px;
+}
+.form-actions button {
+  font-size: 14px;
+}
+.tracks-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.track-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 30px;
+  gap: 6px;
+}
+.track-form input {
+  font-size: 13px;
+}
+.suggested-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.suggested-tags button {
+  font-size: 11px;
+  border: 1px solid var(--border);
+}
+.journal-modal > .quote-card {
+  margin: 10px 0;
+}
+/* 3D paper and leather opening, with a reduced-motion alternative below. */
+.page-flip {
+  position: relative;
+  perspective: 1800px;
+}
+.turning-leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 8;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.turning-leaf.forward {
+  left: 50%;
+  transform-origin: left center;
+  animation: turn-forward 0.78s cubic-bezier(0.35, 0.05, 0.2, 1) both;
+}
+.turning-leaf.backward {
+  left: 0;
+  transform-origin: right center;
+  animation: turn-backward 0.78s cubic-bezier(0.35, 0.05, 0.2, 1) both;
+}
+.leaf-front,
+.leaf-back {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  background-image: var(--paper-grain);
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 20px 0 40px color-mix(in oklab, var(--coffee) 15%, transparent);
+}
+.leaf-back {
+  transform: rotateY(180deg);
+  background-color: var(--parchment);
+}
+.leaf-front::after,
+.leaf-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--walnut) 15%, transparent)
+  );
+  animation: sweeping-shadow 0.78s ease-in-out both;
+}
+.opening-cover {
+  position: absolute;
+  inset: 0 0 48px 0;
+  background: var(--leather);
+  background-image: var(--paper-grain);
+  color: var(--beige);
+  transform-origin: left;
+  z-index: 10;
+  border-radius: 5px;
+  backface-visibility: hidden;
+  box-shadow: var(--desk-shadow);
+  animation: open-book 1.7s 0.1s cubic-bezier(0.3, 0.1, 0.25, 1) both;
+  border: 2px solid var(--gold);
+  padding: 24px;
+}
+.opening-cover > div {
+  height: 100%;
+  border: 1px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.opening-cover h2 {
+  font: 400 85px var(--font-script);
+  color: var(--beige);
+}
+.opening-cover p {
+  font: 29px/1.6 var(--font-script);
+  color: var(--beige);
+  margin: 15px 0 30px;
+}
+.opening-cover .cover-ornament {
+  font-size: 45px;
+}
+@keyframes turn-forward {
+  from {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    transform: rotateY(-180deg);
+    opacity: 0;
+  }
+}
+@keyframes turn-backward {
+  from {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    transform: rotateY(180deg);
+    opacity: 0;
+  }
+}
+@keyframes sweeping-shadow {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes open-book {
+  0%,
+  15% {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(-165deg);
+    opacity: 0;
+  }
+}
+@keyframes page-arrive {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes ink-write {
+  from {
+    transform: scaleX(0) rotate(-2deg);
+  }
+  to {
+    transform: scaleX(1) rotate(-2deg);
+  }
+}
+@keyframes record-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes steam-rise {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 0.55;
+  }
+}
+@keyframes stamp {
+  from {
+    opacity: 0;
+    transform: scale(2) rotate(-18deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-10deg);
+  }
+}
+@keyframes flower-bloom {
+  from {
+    opacity: 0;
+    transform: scale(0.85) rotate(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+@media (min-width: 1450px) {
+  .reading-desk {
+    padding-top: 37px;
+  }
+  .desk-tagline {
+    margin-top: 35px;
+    margin-bottom: 36px;
+  }
+  .book-spread {
+    min-height: 735px;
+  }
+  .illustration-wrap img {
+    max-height: 333px;
+  }
+}
+@media (max-width: 1150px) and (min-width: 761px) {
+  .reading-desk {
+    padding: 22px 3% 19px;
+  }
+  .left-page {
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+  .right-page {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .book-card {
+    grid-template-columns: 89px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 10px;
+  }
+  .book-cover {
+    width: 89px;
+    min-height: 156px;
+  }
+  .cover-book-title {
+    font-size: 14px;
+  }
+  .cover-lettering {
+    min-height: 140px;
+  }
+  .book-card h3 {
+    font-size: 18px;
+  }
+  .shelf-filters button {
+    font-size: 10px;
+    padding: 5px;
+  }
+  .page-section-heading h2 {
+    font-size: 36px;
+  }
+  .page-section-heading .leather-button {
+    font-size: 11px;
+  }
+  .contents-name {
+    font-size: 16px;
+  }
+  .contents-description {
+    font-size: 12px;
+  }
+  .coffee-cup {
+    width: 115px;
+    right: -38px;
+    bottom: -30px;
+  }
+  .desk-pen {
+    display: none;
+  }
+  .left-page-title h1 {
+    font-size: 55px;
+  }
+  .playlist-record {
+    grid-template-columns: 95px minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .reading-desk {
+    padding: 20px 15px 20px;
+  }
+  .desk-header {
+    align-items: flex-start;
+  }
+  .brand-lockup {
+    gap: 9px;
+  }
+  .wax-seal {
+    width: 41px;
+    height: 41px;
+  }
+  .wax-seal svg {
+    width: 20px;
+    height: 20px;
+  }
+  .brand-name {
+    font-size: 29px;
+  }
+  .brand-subtitle {
+    font-size: 6px;
+    margin-top: 4px;
+  }
+  .header-right {
+    gap: 0;
+  }
+  .saved-note {
+    display: none;
+  }
+  .backup-control > .chapter-tab-button {
+    padding: 6px 9px;
+    font-size: 12px;
+    height: 33px;
+  }
+  .backup-control > .chapter-tab-button svg {
+    width: 13px;
+    height: 13px;
+  }
+  .desk-tagline {
+    font-size: 23px;
+    line-height: 1.35;
+    max-width: 300px;
+    margin: 23px auto 29px;
+  }
+  .desk-book-area {
+    padding-right: 0;
+    margin-top: 61px;
+  }
+  .book-cover-base {
+    padding: 9px 7px 12px;
+  }
+  .book-spread {
+    display: block;
+    min-height: 660px;
+  }
+  .left-page {
+    display: none;
+  }
+  .right-page {
+    padding: 31px 23px 52px;
+    min-height: 660px;
+    border-radius: 2px;
+    background-image: var(--paper-grain);
+  }
+  .book-binding {
+    display: none;
+  }
+  .chapter-tabs {
+    top: -50px;
+    right: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 0.8fr 1fr 1fr 1fr 1fr;
+    gap: 3px;
+    align-items: end;
+    padding: 0 3px;
+  }
+  .chapter-tabs .chapter-tab-button,
+  .chapter-tabs .chapter-tab-button:first-child,
+  .chapter-tabs .chapter-tab-button.active,
+  .chapter-tabs .chapter-tab-button:hover {
+    width: 100%;
+    writing-mode: horizontal-tb;
+    height: 48px;
+    border-radius: 4px 4px 0 0;
+    flex-direction: column;
+    padding: 6px 1px;
+    gap: 3px;
+    font-size: 9px;
+    white-space: normal;
+    line-height: 1.15;
+    box-shadow: none;
+  }
+  .chapter-tabs svg {
+    width: 13px;
+    height: 13px;
+  }
+  .chapter-tabs .chapter-tab-button.active {
+    height: 53px;
+  }
+  .bookmark-ribbon {
+    left: 18px;
+    top: -5px;
+    width: 15px;
+    height: 48px;
+    z-index: 2;
+  }
+  .contents-heading {
+    padding-top: 6px;
+  }
+  .contents-heading h2 {
+    font-size: 43px;
+  }
+  .contents-list {
+    margin-top: 19px;
+  }
+  .contents-link {
+    gap: 8px;
+    padding: 15px 0;
+  }
+  .contents-name {
+    font-size: 17px;
+  }
+  .contents-description {
+    font-size: 12px;
+  }
+  .contents-icon {
+    width: 29px;
+    height: 29px;
+    flex-basis: 29px;
+  }
+  .moment-note {
+    margin-top: 35px;
+    padding: 22px 19px;
+  }
+  .moment-note p {
+    font-size: 26px;
+  }
+  .contents-bottom {
+    margin-top: 28px;
+  }
+  .contents-bottom p {
+    font-size: 22px;
+  }
+  .page-bottom {
+    left: 23px;
+    right: 23px;
+    font-size: 7px;
+  }
+  .bottom-page-nav {
+    margin: 15px 0 0;
+    gap: 3px;
+  }
+  .bottom-page-nav button {
+    font-size: 12px;
+    padding: 4px 2px;
+  }
+  .bottom-page-nav button svg {
+    width: 12px;
+    height: 12px;
+  }
+  .bottom-page-nav .metadata {
+    font-size: 7px;
+  }
+  .coffee-cup,
+  .desk-pen {
+    display: none;
+  }
+  .desk-footer {
+    margin-top: 22px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+  .footer-privacy {
+    display: none;
+  }
+  .desk-footer > span:first-child {
+    width: 100%;
+    justify-content: center;
+  }
+  .page-section-heading h2 {
+    font-size: 35px;
+  }
+  .page-section-heading .leather-button {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+  .page-section-heading > .little-flower {
+    font-size: 28px;
+  }
+  .page-intro {
+    font-size: 14px;
+  }
+  .shelf-filters button {
+    font-size: 10px;
+    padding: 5px 4px;
+    gap: 3px;
+  }
+  .shelf-filters button span:first-child {
+    display: none;
+  }
+  .book-card {
+    grid-template-columns: 93px minmax(0, 1fr);
+    gap: 12px;
+    padding: 13px 10px;
+  }
+  .book-cover {
+    width: 93px;
+    min-height: 163px;
+  }
+  .cover-lettering {
+    min-height: 147px;
+  }
+  .cover-book-title {
+    font-size: 14px;
+  }
+  .book-card h3 {
+    font-size: 18px;
+  }
+  .book-card-body > .small-label {
+    font-size: 7px;
+  }
+  .book-author {
+    font-size: 13px;
+  }
+  .book-actions .text-primary {
+    font-size: 10px;
+  }
+  .playlist-record {
+    grid-template-columns: 95px minmax(0, 1fr);
+    gap: 13px;
+  }
+  .record-info h3 {
+    font-size: 19px;
+  }
+  .quote-card {
+    padding: 26px 20px 16px;
+  }
+  .quote-card blockquote {
+    font-size: 21px;
+  }
+  .quote-search select {
+    font-size: 12px;
+  }
+  .planner-section h3 {
+    font-size: 16px;
+  }
+  .goal-progress > div {
+    font-size: 12px;
+  }
+  .goal-progress .metadata {
+    font-size: 9px;
+  }
+  .goal-inputs {
+    gap: 8px;
+  }
+  .form-field > span {
+    font-size: 9px;
+  }
+  .calendar-heading .metadata {
+    font-size: 10px;
+  }
+  .streak-row {
+    gap: 3px;
+  }
+  .streak-row span {
+    font-size: 8px;
+  }
+  .modal-backdrop {
+    padding: 17px;
+  }
+  .journal-modal {
+    padding: 18px 20px 24px;
+  }
+  .modal-heading h2 {
+    font-size: 32px;
+  }
+  .form-actions button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .track-form {
+    grid-template-columns: 1fr 30px;
+  }
+  .track-form input:nth-child(2) {
+    grid-row: 2;
+  }
+  .track-form button {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .turning-leaf {
+    width: 100%;
+  }
+  .turning-leaf.forward,
+  .turning-leaf.backward {
+    left: 0;
+  }
+  .turning-leaf.backward {
+    transform-origin: right;
+  }
+  .opening-cover {
+    inset: 0 0 47px;
+    padding: 16px;
+  }
+  .opening-cover h2 {
+    font-size: 59px;
+  }
+  .opening-cover p {
+    font-size: 25px;
+    padding: 0 15px;
+  }
+  .desk-message {
+    font-size: 13px;
+    align-items: flex-start;
+  }
+  .page-section-heading {
+    gap: 6px;
+  }
+}
+@media (max-width: 360px) {
+  .reading-desk {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+  .right-page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .brand-name {
+    font-size: 26px;
+  }
+  .book-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 9px;
+  }
+  .book-cover {
+    width: 82px;
+  }
+  .page-section-heading h2 {
+    font-size: 31px;
+  }
+  .contents-name {
+    font-size: 15px;
+  }
+  .contents-description {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .turning-leaf {
+    display: none;
+  }
+  .opening-cover {
+    animation: page-arrive 0.15s reverse both !important;
+  }
+  .right-page-content {
+    animation: page-arrive 0.15s both !important;
+  }
+}
